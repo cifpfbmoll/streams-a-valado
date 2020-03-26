@@ -1,1 +1,6 @@
-ERROR: Ruta de fichero inválida Thu Mar 26 00:36:01 CET 2020
+
+ERROR: Ruta de fichero inválida [Ljava.lang.StackTraceElement;@4f3f5b24 Thu Mar 26 12:47:23 CET 2020
+ERROR: Ruta de fichero inválida [Ljava.lang.StackTraceElement;@4f3f5b24 Thu Mar 26 13:30:42 CET 2020
+ERROR: Ruta de fichero inválida [Ljava.lang.StackTraceElement;@4f3f5b24 Thu Mar 26 13:31:11 CET 2020
+ERROR: Ruta de fichero inválida [Ljava.lang.StackTraceElement;@4f3f5b24 Thu Mar 26 13:33:01 CET 2020
+ERROR: Ruta de fichero inválida [Ljava.lang.StackTraceElement;@4f3f5b24 Thu Mar 26 13:34:56 CET 2020
