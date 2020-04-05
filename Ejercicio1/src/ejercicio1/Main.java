@@ -1,12 +1,16 @@
 package ejercicio1;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -195,7 +199,7 @@ public class Main {
 		}
 	}
 	
-	public static void menuObjetos() {
+	public static void menuObjetos() throws origenInvalido, IOException {
 		boolean mostrarSubMenu = true;
 		
 		try {
@@ -212,10 +216,13 @@ public class Main {
 				
 				switch (opcion) {
 				case 1:
+					LineReaderObjectWriter();
 					break;
 				case 2:
+					ObjectReaderObjectWriter();
 					break;
 				case 3:
+					ObjectReaderConsoleWriter();
 					break;
 				case 4:
 					break;
@@ -228,9 +235,98 @@ public class Main {
 			
 		}
 		
-
-		
+	}
+	public static void LineReaderObjectWriter() throws IOException, origenInvalido {
+		Scanner input = new Scanner(System.in);
+		try {
+			System.out.println("Indique la ruta de origen: ");
+			String origen = input.nextLine();
+			if (origen.contentEquals("origen.txt") == false) {
+	        	//si se selecciona un archivo de origen distinto al de la carpeta, se lanza la siguiente excepción
+	        	throw new origenInvalido();
+			}
+			File archivoEntrada = new File(origen);
+			File f = new File("ficheroSalObj.obj");
+			FileOutputStream fos = new FileOutputStream(f);
+			BufferedReader ultralector = new BufferedReader(new FileReader(archivoEntrada));
+			ObjectOutputStream objescritor = new ObjectOutputStream(fos);
+			boolean eof = false;
+			do {
+				String linea_leida = ultralector.readLine();
+				if (linea_leida != null) {
+					ArrayList <Pelicula> Cartelera = new ArrayList<Pelicula>();
+					String[] lineas = linea_leida.split("\\{");
+					Pelicula a = new Pelicula();
+					Pelicula b = new Pelicula();
+					Cartelera.add(a);
+					Cartelera.add(b);
+					for (int i = 0; i < lineas.length; i++) {
+						String[] myMovie = lineas[i].split("#");
+						Cartelera.get(i).setTitulo(myMovie[0]);
+						Cartelera.get(i).setAño(myMovie[1]);
+						Cartelera.get(i).setDirector(myMovie[2]);
+						Cartelera.get(i).setDuracion(myMovie[3]);
+						Cartelera.get(i).setSinopsis(myMovie[4]);
+						Cartelera.get(i).setReparto(myMovie[5]);
+						Cartelera.get(i).setSesiones(myMovie[6]);
+					}
+					
+					for (int j =0; j < Cartelera.size(); j++) {
+						objescritor.writeObject(Cartelera.get(j));
+					}
+					
+				} else {
+					eof = true;
+				}
+			} while (!eof);
+			ultralector.close();
+			objescritor.close();
+		} catch (EOFException e) {
+			System.out.println("Fin de fichero");
+		} finally {
+			
+		}
 	}
 	
+	public static void ObjectReaderObjectWriter() throws origenInvalido, IOException{
+		
+		try {
+			FileInputStream fis = new FileInputStream("ficheroSalObj.obj");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Pelicula p = (Pelicula) ois.readObject();
+			FileOutputStream fos = new FileOutputStream("ficheroSalObj2.obj");
+			ObjectOutputStream oos = new ObjectOutputStream(fos);
+			
+			oos.writeObject(p);
+			
+			ois.close();
+			oos.close();
+		} catch (EOFException e) {
+			System.out.println("Fin de fichero");
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			
+		}
+
+	}
+	
+	public static void ObjectReaderConsoleWriter() {
+			
+		try {
+			FileInputStream fis = new FileInputStream("ficheroSalObj2.obj");
+			ObjectInputStream ois = new ObjectInputStream(fis);
+			Pelicula p = (Pelicula) ois.readObject();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+	}
 
 }

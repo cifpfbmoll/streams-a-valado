@@ -16,6 +16,10 @@ public class Pelicula implements Serializable {
 	private String reparto;
 	private String sesiones;
 	
+	public Pelicula() {
+		
+	}
+	
 	public Pelicula(String titulo, String año, String director, String duracion, String sinopsis, String reparto, String sesiones) {
 		this.setTitulo(titulo);
 		this.setAño(año);
@@ -31,7 +35,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setTitulo(String titulo) {
-		this.titulo = "-----" + titulo + "-----";
+		this.titulo = "-----" + titulo + "-----\n";
 	}
 
 	public String getAño() {
@@ -39,7 +43,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setAño(String año) {
-		this.año = "Año: " + año;
+		this.año = "Año: " + año + "\n";
 	}
 
 	public String getDirector() {
@@ -47,7 +51,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setDirector(String director) {
-		this.director = "Director: " + director;
+		this.director = "Director: " + director + "\n";
 	}
 
 	public String getDuracion() {
@@ -55,7 +59,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setDuracion(String duracion) {
-		this.duracion = "Duración: " + duracion + " minutos";
+		this.duracion = "Duración: " + duracion + " minutos\n";
 	}
 
 	public String getSinopsis() {
@@ -63,7 +67,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setSinopsis(String sinopsis) {
-		this.sinopsis ="Sinopsis: " + sinopsis;
+		this.sinopsis ="Sinopsis: " + sinopsis + "\n";
 	}
 
 	public String getReparto() {
@@ -71,7 +75,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setReparto(String reparto) {
-		this.reparto = "Reparto: " + reparto;
+		this.reparto = "Reparto: " + reparto + "\n";
 	}
 
 	public String getSesiones() {
@@ -79,7 +83,7 @@ public class Pelicula implements Serializable {
 	}
 
 	public void setSesiones(String sesiones) {
-		this.sesiones = "Sesiones: " + sesiones;
+		this.sesiones = "Sesiones: " + sesiones + "\n";
 	}
 	
 	
